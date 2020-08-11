@@ -1,0 +1,49 @@
+node {
+    properties([
+		parameters([
+			booleanParam(
+                defaultValue: false,
+                description: '',
+                name: 'startHello1'
+			),
+			booleanParam(
+                defaultValue: false,
+                description: '',
+                name: 'startHello2'
+			),
+			booleanParam(
+                defaultValue: false,
+                description: '',
+                name: 'startHello3'
+			),
+			booleanParam(
+                defaultValue: false,
+                description: '',
+                name: 'startHello4'
+			)
+		])
+	])
+	
+
+	stage('start hello 1') {
+		if (params.startHello1) {
+			build job: 'hello 1'
+		}
+	}
+	stage('start hello 2') {
+		if (params.startHello2) {
+			build job: 'hello 2'
+		}
+	}
+	stage('start hello 3') {
+		if (params.startHello3) {
+			build job: 'hello 3'
+		}
+	}
+	stage('start hello 4') {
+		if (params.startHello4) {
+			build job: 'hello 4'
+		}
+	}
+
+}

@@ -1,0 +1,14 @@
+node {
+	stage('start hello 1') {
+		build job: 'hello 1'
+	}
+	stage('start hello 2') {
+		build job: 'hello 2'
+	}
+	stage('start hello 3') {
+		build job: 'hello 3'
+	}
+	stage('start hello 4') {
+		build job: 'hello 4'
+	}
+}
