@@ -1,0 +1,9 @@
+---
+ansible_user : Administrator
+ansible_password : Govor123123
+ansible_post : 5986
+ansible_connection : winrm
+ansible_winrm_server_cert_validation : ignore
+ansible_become_method: runas
+ansible_become_user: Administrator
+#ansible_python_interpreter: c:\Python\python
