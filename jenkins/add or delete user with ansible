@@ -73,10 +73,10 @@ node {
 	
 	
 	stage('Execute script') {
-    	sshagent (credentials: ['ssh_cred']) {
-            sh '''ssh -o StrictHostKeyChecking=no govor@192.168.0.108 'cd ansible; ansible-playbook playbook1.yml --extra-vars "'''+extra_vars+'''"' '''
-        }
-    }
+		sshagent (credentials: ['ssh_cred']) {
+			sh '''ssh -o StrictHostKeyChecking=no govor@192.168.0.108 'cd ansible; ansible-playbook playbook1.yml --extra-vars "'''+extra_vars+'''"' '''
+		}
+	}
 	
 
 }
