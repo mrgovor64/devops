@@ -1,0 +1,82 @@
+node {
+    properties([
+		parameters([
+		    
+			string(
+			    defaultValue: 'user1',
+                description: 'User name',
+			    name: 'user_name'
+			),
+			string(
+			    defaultValue: 'Pass123',
+                description: 'Password',
+			    name: 'user_password'
+			),
+			string(
+			    defaultValue: 'Pass123',
+                description: 'Confirm password',
+			    name: 'user_password_2'
+			),
+			booleanParam(
+                defaultValue: false,
+                description: 'Remove user?',
+                name: 'remove'
+			)
+		])
+	])
+	
+	stage('Check user') {
+       if (!params.user_name) {
+            currentBuild.result = 'ABORTED'
+            error('user_name is empty')
+	    } 
+    }
+	
+	if(!params.remove) {
+	    stage('Check password') {
+	        if (!params.user_password) {
+                currentBuild.result = 'ABORTED'
+                error('user_password is empty')
+    	    } 
+            if (params.user_password != params.user_password_2) {
+                currentBuild.result = 'ABORTED'
+                error('Password mismatch')
+    	    }
+    	    
+    	    if(params.user_password.length() < 6) {
+    	        currentBuild.result = 'ABORTED'
+                error('Password must be at least 6 characters long')
+    	    }
+    	    if(!(params.user_password =~ /[A-Z]+/)) {
+    	        currentBuild.result = 'ABORTED'
+                error('Password must contain at least one upper case letter [A-Z]')
+    	    }
+    	    if(!(params.user_password =~ /[a-z]+/)) {
+    	        currentBuild.result = 'ABORTED'
+                error('Password must contain at least one lower case letter [a-z]')
+    	    }
+    	    if(!(params.user_password =~ /\d+/)) {
+    	        currentBuild.result = 'ABORTED'
+                error('Password must contain at least one number')
+    	    }
+		}
+	}
+	
+	def extra_vars = '';
+	
+
+	if(params.remove){
+	    extra_vars = "pb_doing=remove user_name="+params.user_name
+	}else{
+	    extra_vars = "pb_doing=add user_name="+params.user_name+" user_password="+params.user_password
+	}
+	
+	
+	stage('Execute script') {
+    	sshagent (credentials: ['ssh_cred']) {
+            sh '''ssh -o StrictHostKeyChecking=no govor@192.168.0.108 'cd ansible; ansible-playbook playbook1.yml --extra-vars "'''+extra_vars+'''"' '''
+        }
+    }
+	
+
+}
