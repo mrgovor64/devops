@@ -1,0 +1,12 @@
+node {
+    stage('Clone sources') {
+        git url: 'https://github.com/mrgovor64/jenkins.git'
+    }
+
+    withCredentials([usernamePassword(credentialsId: 'someuser', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+        password = env.PASSWORD
+        user = env.USERNAME
+    }
+
+    sh "python includeCredentials.py someconfig.conf --parameters=\"user='${user}' password='${password}'\" "
+}
