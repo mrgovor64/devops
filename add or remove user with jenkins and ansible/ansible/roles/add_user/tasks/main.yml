@@ -1,0 +1,23 @@
+---
+# tasks file for add_user
+
+- name: add user to linux
+  user:
+    name: "{{user_name}}"
+    shell: /bin/bash
+    password: "{{ user_password | password_hash('sha512') }}"
+    update_password: on_create
+  register: user_info
+  when: "'linux' in group_names"
+ 
+- name: add user to windows
+  win_user:
+    name: "{{user_name}}"
+    password: "{{user_password}}"
+    update_password: on_create
+  register: user_info
+  when: "'windows' in group_names"
+
+- name: print info
+  debug:
+    var: user_info

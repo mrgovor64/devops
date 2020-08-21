@@ -1,0 +1,21 @@
+---
+# tasks file for remove_user
+
+- name: remove user to linux
+  user:
+    name: "{{user_name}}"
+    state: absent
+    remove: yes
+  register: user_info
+  when: "'linux' in group_names"
+
+- name: remove user to windows
+  win_user:
+    name: "{{user_name}}"
+    state: absent
+  register: user_info
+  when: "'windows' in group_names"
+
+- name: print info
+  debug:
+    var: user_info
