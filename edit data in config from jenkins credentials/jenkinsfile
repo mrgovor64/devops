@@ -3,8 +3,5 @@ node {
         password = env.PASSWORD
         user = env.USERNAME
     }
-	sh "
-		cd edit\\ data\\ in\\ config\\ from\\ jenkins\\ credentials;
-		python includeCredentials.py someconfig.conf --parameters=\"user='${user}' password='${password}'\" 
-	"
+	sh "cd edit\\ data\\ in\\ config\\ from\\ jenkins\\ credentials; python includeCredentials.py someconfig.conf --parameters=\"user='${user}' password='${password}'\" "
 }
