@@ -24,7 +24,7 @@ node {
 		])
 	])
 	
-
+	echo '123'
 	stage('start hello 1') {
 		if (params.startHello1) {
 			build job: 'hello 1'
