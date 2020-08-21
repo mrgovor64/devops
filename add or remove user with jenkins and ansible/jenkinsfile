@@ -69,7 +69,7 @@ node {
 			}
 		}else{
 			sshagent (credentials: ['ssh_cred']) {
-				sh "ssh -o StrictHostKeyChecking=no govor@192.168.0.108 'cd ansible; ansible-playbook playbook_remove_user.yml --extra-vars \"user_name=${params.user_name} user_password=${params.user_password}\"' "
+				sh "ssh -o StrictHostKeyChecking=no govor@192.168.0.108 'cd ansible; ansible-playbook playbook_add_user.yml --extra-vars \"user_name=${params.user_name} user_password=${params.user_password}\"' "
 			}
 		}
 		
