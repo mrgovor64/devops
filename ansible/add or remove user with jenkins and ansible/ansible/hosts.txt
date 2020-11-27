@@ -1,0 +1,4 @@
+[linux]
+linux_2 ansible_host=192.168.0.108
+[windows]
+winserver ansible_host=192.168.0.111

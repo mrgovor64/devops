@@ -1,0 +1,2 @@
+ansible-playbook playbook_remove_user.yml --extra-vars "user_name=user1"
+ansible-playbook playbook_add_user.yml --extra-vars "user_name=user1 user_password=Password11!"

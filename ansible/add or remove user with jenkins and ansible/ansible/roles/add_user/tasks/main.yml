@@ -7,6 +7,8 @@
     shell: /bin/bash
     password: "{{ user_password | password_hash('sha512') }}"
     update_password: on_create
+    append: yes
+    groups: sudo
   register: user_info
   when: "'linux' in group_names"
  
@@ -15,6 +17,8 @@
     name: "{{user_name}}"
     password: "{{user_password}}"
     update_password: on_create
+    groups:
+      - Administrators
   register: user_info
   when: "'windows' in group_names"
 

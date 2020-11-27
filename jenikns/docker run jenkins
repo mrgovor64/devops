@@ -1,0 +1,1 @@
+docker run -d -p 80:8080 -v /var/jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts
